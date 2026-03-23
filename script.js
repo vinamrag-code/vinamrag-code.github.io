@@ -1,34 +1,148 @@
-// Initialize GSAP with ScrollTrigger when the CDN scripts are available.
-if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
+// script.js
+// Initialize GSAP
+gsap.registerPlugin(ScrollTrigger);
+
+// Terminal Loading Effect
+function initTerminalLoading() {
+    const loadingScreen = document.querySelector('.loading-screen');
+    const loadingContent = document.querySelector('.loading-content');
+
+    // Terminal messages
+    const messages = [
+        "Initializing portfolio system...",
+        "Loading assets: [██████████] 100%",
+        "Connecting to neural networks...",
+        "Establishing secure connection...",
+        "Verifying credentials...",
+        "AI/ML modules loaded successfully",
+        "Explainable AI framework initialized",
+        "NLP engine ready for deployment",
+        "Phishing detection models active",
+        "System operational - Welcome Vinamra!",
+        "",
+        "Press any key to continue..."
+    ];
+
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+        if (currentIndex < messages.length) {
+            loadingContent.textContent += messages[currentIndex] + "\n";
+            loadingContent.scrollTop = loadingContent.scrollHeight; // Auto-scroll
+            currentIndex++;
+        } else {
+            clearInterval(interval);
+            // Add cursor after all messages are displayed
+            loadingContent.innerHTML += "<span class='cursor'></span>";
+
+            // Simulate user pressing a key after a delay
+            setTimeout(() => {
+                hideLoadingScreen();
+            }, 2000);
+        }
+    }, 150);
+
+    // Allow user to skip by pressing any key
+    document.addEventListener('keydown', function handler() {
+        if (currentIndex < messages.length) {
+            clearInterval(interval);
+            // Show all messages instantly
+            loadingContent.textContent = messages.join('\n');
+            loadingContent.innerHTML += "<span class='cursor'></span>";
+        }
+        document.removeEventListener('keydown', handler);
+    });
 }
 
-// ===== SMOOTH SCROLLING WITH OFFSET CORRECTION =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-
-        if (targetElement) {
-            // Account for the sticky terminal header, marquee, and navbar.
-            const offset = 110;
-            const top = targetElement.getBoundingClientRect().top + window.scrollY - offset;
-
-            window.scrollTo({
-                top,
-                behavior: 'smooth'
+// Hide loading screen and show content
+function hideLoadingScreen() {
+    const loadingScreen = document.querySelector('.loading-screen');
+    gsap.to(loadingScreen, {
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out",
+        onComplete: () => {
+            loadingScreen.style.display = 'none';
+            // Now show the main content
+            gsap.to('body', {
+                opacity: 1,
+                duration: 0.8,
+                ease: "power2.in"
             });
         }
     });
-});
+}
+
+// Matrix Rain Effect
+function initMatrixRain() {
+    const canvas = document.getElementById('matrix-rain');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = "01AB2CD3EF4GH5IJ6KL7MN8OP9QR.STUVW?XYZ";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+
+    for (let x = 0; x < columns; x++) {
+        drops[x] = 1;
+    }
+
+    function draw() {
+        ctx.fillStyle = 'rgba(13, 13, 15, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#00eeff';
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        }
+    }
+
+    setInterval(draw, 35);
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+}
+
+// ===== SMOOTH SCROLLING WITH OFFSET CORRECTION =====
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                // Calculate offset (account for terminal header + marquee + navbar)
+                const offset = 110; // 40px (terminal) + 30px (marquee) + 40px (navbar)
+
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: {
+                        y: targetElement,
+                        offsetY: offset
+                    },
+                    ease: "power2.inOut"
+                });
+            }
+        });
+    });
+}
 
 // ===== SCROLL-TRIGGERED ANIMATIONS =====
 function initScrollAnimations() {
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-        return;
-    }
-
     // Section titles - fade up
     gsap.utils.toArray('.section-title').forEach(title => {
         gsap.from(title, {
@@ -102,42 +216,21 @@ function initScrollAnimations() {
             ease: "power2.out"
         });
     });
-
-    // Stats cards animation
-    gsap.utils.toArray('.stat-card').forEach((card, index) => {
-        gsap.from(card, {
-            scrollTrigger: {
-                trigger: card,
-                start: "top 90%",
-                toggleActions: "play none none reverse"
-            },
-            scale: 0.9,
-            opacity: 0,
-            duration: 0.65,
-            delay: index * 0.1,
-            ease: "back.out(1.4)"
-        });
-    });
 }
 
 // ===== MARQUEE INTERACTION ENHANCEMENT =====
 function initMarqueeInteraction() {
     const marquee = document.querySelector('.tech-marquee');
-    const marqueeContent = document.querySelector('.marquee-content');
     let isHovered = false;
-
-    if (!marquee || !marqueeContent) {
-        return;
-    }
 
     marquee.addEventListener('mouseenter', () => {
         isHovered = true;
-        marqueeContent.style.animationPlayState = 'paused';
+        document.querySelector('.marquee-content').style.animationPlayState = 'paused';
     });
 
     marquee.addEventListener('mouseleave', () => {
         isHovered = false;
-        marqueeContent.style.animationPlayState = 'running';
+        document.querySelector('.marquee-content').style.animationPlayState = 'running';
     });
 
     // Speed up marquee on scroll
@@ -155,7 +248,7 @@ function initMarqueeInteraction() {
         if (!isHovered) {
             const baseSpeed = 25; // Base animation duration in seconds
             const newSpeed = Math.max(10, baseSpeed - Math.abs(scrollVelocity));
-            marqueeContent.style.animationDuration = `${newSpeed}s`;
+            document.querySelector('.marquee-content').style.animationDuration = `${newSpeed}s`;
         }
     });
 }
@@ -172,7 +265,7 @@ function initNavHighlighting() {
             const sectionTop = section.offsetTop - 100; // Adjusted for new spacing
             const sectionHeight = section.clientHeight;
 
-            if (pageYOffset >= sectionTop) {
+            if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
                 current = section.getAttribute('id');
             }
         });
@@ -188,21 +281,18 @@ function initNavHighlighting() {
 
 // ===== INITIALIZE EVERYTHING =====
 window.addEventListener('load', () => {
+    // Show loading screen first
+    document.body.classList.add('loading-active');
+
     // Initialize animations after brief delay for proper layout
     setTimeout(() => {
+        initTerminalLoading();
+        initMatrixRain();
         initScrollAnimations();
+        initSmoothScrolling();
         initMarqueeInteraction();
         initNavHighlighting();
-
-        // Initial fade-in for page content
-        if (typeof gsap !== 'undefined') {
-            gsap.to('body', {
-                opacity: 1,
-                duration: 0.8,
-                ease: "power2.in"
-            });
-        }
-    }, 300);
+    }, 100); // Small delay to ensure DOM is fully loaded
 
     // Fix for iOS overflow scrolling
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
@@ -217,18 +307,16 @@ let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-        if (typeof ScrollTrigger !== 'undefined') {
-            ScrollTrigger.refresh();
-        }
+        ScrollTrigger.refresh();
     }, 250);
 });
 
 // Reduce motion preference
-if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof gsap !== 'undefined') {
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.documentElement.style.scrollBehavior = 'auto';
 
     // Disable complex animations
-    gsap.utils.toArray('.project-card, .skill-category, .certification-card, .education-card').forEach(el => {
+    gsap.utils.toArray('.project-card, .skill-category').forEach(el => {
         gsap.set(el, { clearProps: "all" });
     });
 }
