@@ -7,339 +7,217 @@
     <title>Vinamra Agrawal | AI/ML Engineer</title>
     <link rel="stylesheet" href="styles.css">
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono:wght@300;400;500&family=Poppins:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono:wght@100..800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <!-- Three.js for 3D background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Lenis for smooth scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-    <!-- Terminal Header -->
-    <div class="terminal-header">
-        <div class="terminal-controls">
-            <span class="control-btn close"></span>
-            <span class="control-btn minimize"></span>
-            <span class="control-btn maximize"></span>
-        </div>
-        <div class="terminal-title">VINAMRA_AGRAWAL_PORTFOLIO v2.1.0</div>
-    </div>
+    <div id="webgl-container"></div>
 
-    <!-- Santhil-Style Horizontal Marquee -->
-    <div class="tech-marquee">
-        <div class="marquee-content">
-            <span>⚡ EXPLAINABLE AI</span>
-            <span>🧠 NLP DEVELOPER</span>
-            <span>🤖 MACHINE LEARNING</span>
-            <span>🐍 PYTHON</span>
-            <span>⚙️ C++</span>
-            <span>⚡ EXPLAINABLE AI</span>
-            <span>🧠 NLP DEVELOPER</span>
-            <span>🤖 MACHINE LEARNING</span>
-            <span>🐍 PYTHON</span>
-            <span>⚙️ C++</span>
-        </div>
-    </div>
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-follower"></div>
 
-    <!-- Navigation -->
     <nav class="navbar">
-        <ul>
-            <li><a href="#home" class="active">[HOME]</a></li>
-            <li><a href="#about">[ABOUT]</a></li>
-            <li><a href="#skills">[SKILLS]</a></li>
-            <li><a href="#projects">[PROJECTS]</a></li>
-            <li><a href="#publications">[PUBLICATIONS]</a></li>
-            <li><a href="#experience">[EXPERIENCE]</a></li>
-            <li><a href="#certifications">[CERTIFICATIONS]</a></li>
-            <li><a href="#contact">[CONTACT]</a></li>
-        </ul>
+        <div class="nav-logo">VA_</div>
+        <div class="nav-links">
+            <a href="#home" class="nav-link" data-text="HOME">HOME</a>
+            <a href="#about" class="nav-link" data-text="ABOUT">ABOUT</a>
+            <a href="#expertise" class="nav-link" data-text="SKILLS">SKILLS</a>
+            <a href="#projects" class="nav-link" data-text="PROJECTS">PROJECTS</a>
+            <a href="#experience" class="nav-link" data-text="EXPERIENCE">EXPERIENCE</a>
+        </div>
+        <div class="nav-socials">
+            <a href="https://github.com/vinamrag-code" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/vinamragrawal12" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
     </nav>
 
-    <!-- Matrix Rain Background -->
-    <canvas id="matrix-rain"></canvas>
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
 
-    <!-- Home Section -->
-    <section id="home" class="section home-section">
-        <div class="content">
-            <div class="hero-content">
-                <div class="typewriter-container">
-                    <h1>VINAMRA AGRAWAL</h1>
-                    <div class="typewriter">
-                        <span class="role">AI/ML Engineer | Explainable AI Specialist | NLP Developer</span>
+            <!-- Hero -->
+            <section id="home" class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <div class="line">
+                            <span class="word">VINAMRA</span>
+                        </div>
+                        <div class="line indent">
+                            <span class="word">AGRAWAL</span>
+                        </div>
+                    </h1>
+                    <div class="hero-sub">
+                        <div class="hero-info">
+                            <p class="role-text">AI/ML Engineer &bull; Explainable AI Specialist &bull; NLP Developer
+                            </p>
+                        </div>
+                        <a href="Vinamra_CV.pdf" class="magnetic-btn" target="_blank" download>
+                            <span class="btn-text">RESUME</span>
+                            <div class="btn-bg"></div>
+                        </a>
                     </div>
                 </div>
-                <div class="hero-actions">
-                    <a href="Vinamra_CV.pdf" class="resume-button" download>
-                        <i class="fas fa-download"></i> DOWNLOAD RESUME
-                    </a>
+                <div class="scroll-indicator">
+                    <div class="mouse"></div>
+                    <p>SCROLL</p>
                 </div>
-                <div class="social-icons">
-                    <a href="mailto:agrawalvinamra12@gmail.com"><span class="email-icon">📧</span></a>
-                    <a href="https://github.com/vinamrag-code"><span class="github-icon">💻</span></a>
-                    <a href="https://linkedin.com/in/vinamragrawal12"><span class="linkedin-icon">👔</span></a>
+            </section>
+
+
+            <!-- About -->
+            <section id="about" class="about">
+                <div class="container">
+                    <h2 class="section-heading" data-heading="ABOUT">ABOUT</h2>
+                    <div class="about-grid">
+                        <div class="about-text">
+                            <p class="reveal-text">I construct transparent and interpretable machine learning systems.
+                                My research bridges the gap between complex algorithms and human understanding.</p>
+                            <p class="reveal-text mt-4">Currently pursuing a Bachelor's in Electronics & Computer
+                                Engineering at Jaypee Institute of Information Technology, merging academic rigor with
+                                bleeding-edge practical innovation.</p>
+                        </div>
+                        <div class="about-stats">
+                            <div class="stat-item reveal-up">
+                                <span class="stat-num">160K+</span>
+                                <span class="stat-desc">URLs classified in Phishing Detection Framework</span>
+                            </div>
+                            <div class="stat-item reveal-up" style="transition-delay: 0.1s">
+                                <span class="stat-num">30%</span>
+                                <span class="stat-desc">Improvement in AI Chatbot relevance</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- About Section -->
-    <section id="about" class="section about-section">
-        <div class="content">
-            <h2>ABOUT_ME</h2>
-            <p>
-                I'm an AI/ML Engineer specializing in Explainable AI (XAI) and Natural Language Processing.
-                With a strong foundation in Python, C++, and TensorFlow, I develop transparent and interpretable
-                machine learning systems. My research focuses on making AI decisions understandable to humans,
-                particularly in cybersecurity applications like phishing detection.
-            </p>
-            <p>
-                Currently pursuing a Bachelor's in Electronics & Computer Engineering at Jaypee Institute of
-                Information Technology, I combine academic rigor with practical innovation. My work bridges
-                the gap between complex algorithms and real-world applications, ensuring AI systems are both
-                powerful and trustworthy.
-            </p>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="section skills-section">
-        <div class="content">
-            <h2>SKILLS_MATRIX</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>LANGUAGES</h3>
-                    <ul>
-                        <li>C++</li>
-                        <li>Python</li>
-                        <li>JavaScript</li>
+            <!-- Expertise (Skills combined) -->
+            <section id="expertise" class="expertise">
+                <div class="container">
+                    <h2 class="section-heading" data-heading="SKILLS">SKILLS</h2>
+                    <ul class="expertise-list">
+                        <li class="expertise-item hover-reveal">
+                            <div class="item-title">
+                                <h3>Machine Learning</h3>
+                                <span class="item-tech">TensorFlow, Scikit-learn, Generative AI, LIME, SHAP</span>
+                            </div>
+                            <div class="item-divider"></div>
+                        </li>
+                        <li class="expertise-item hover-reveal">
+                            <div class="item-title">
+                                <h3>Backend & APIs</h3>
+                                <span class="item-tech">Python, C++, Node.js, REST Architecture</span>
+                            </div>
+                            <div class="item-divider"></div>
+                        </li>
+                        <li class="expertise-item hover-reveal">
+                            <div class="item-title">
+                                <h3>Frontend & Platforms</h3>
+                                <span class="item-tech">JavaScript, HTML/CSS, Flutter, Git, Linux</span>
+                            </div>
+                            <div class="item-divider"></div>
+                        </li>
                     </ul>
                 </div>
-                <div class="skill-category">
-                    <h3>MACHINE LEARNING & AI</h3>
-                    <ul>
-                        <li>TensorFlow</li>
-                        <li>Scikit-learn</li>
-                        <li>NLP</li>
-                        <li>Generative AI</li>
-                        <li>OpenAI API</li>
-                        <li>SHAP</li>
-                        <li>LIME</li>
-                    </ul>
+            </section>
+
+            <!-- Projects -->
+            <section id="projects" class="projects">
+                <div class="container">
+                    <h2 class="section-heading" data-heading="PROJECTS">PROJECTS</h2>
+
+                    <div class="project-list">
+                        <a href="https://phishing-detection-url.streamlit.app/" target="_blank"
+                            class="project-item magnetic-wrap">
+                            <div class="project-meta">01 / ML Framework</div>
+                            <h3 class="project-name">Phishing URL Detector</h3>
+                            <div class="project-tags"><span>SHAP</span><span>LIME</span><span>Random Forest</span></div>
+                            <div class="reveal-img-wrap">
+                                <div class="reveal-img"></div>
+                            </div>
+                        </a>
+
+                        <div class="project-item magnetic-wrap">
+                            <div class="project-meta">02 / NLP Chatbot</div>
+                            <h3 class="project-name">Generative AI Assistant</h3>
+                            <div class="project-tags"><span>OpenAI API</span><span>Intent Classification</span></div>
+                            <div class="reveal-img-wrap">
+                                <div class="reveal-img"></div>
+                            </div>
+                        </div>
+
+                        <div class="project-item magnetic-wrap">
+                            <div class="project-meta">03 / Platform Architecture</div>
+                            <h3 class="project-name">Multilingual E-Commerce AI</h3>
+                            <div class="project-tags"><span>React</span><span>Node.js</span><span>WebSockets</span>
+                            </div>
+                            <div class="reveal-img-wrap">
+                                <div class="reveal-img"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-category">
-                    <h3>BACKEND & APIS</h3>
-                    <ul>
-                        <li>Node.js</li>
-                        <li>REST APIs</li>
-                    </ul>
+            </section>
+
+            <!-- Experience & Pubs combined -->
+            <section id="experience" class="experience">
+                <div class="container">
+                    <div class="exp-grid">
+                        <div class="exp-col">
+                            <h2 class="section-heading small" data-heading="EXPERIENCE">EXPERIENCE</h2>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4>UI/UX Designer &amp; Team Coordinator</h4>
+                                <span class="timeline-company">Alpixn Technologies</span>
+                                <span class="timeline-date">May 2025 - June 2025</span>
+                                <p>Led frontend development for a multilingual AI-driven platform. Restructured
+                                    navigation, cutting interaction steps by 20%.</p>
+                            </div>
+                        </div>
+                        <div class="exp-col">
+                            <h2 class="section-heading small" data-heading="PUBLICATIONS">PUBLICATIONS</h2>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4>Explainable ML Framework for URL-Based Phishing Detection</h4>
+                                <span class="timeline-company">IEEE SB JIIT Booklet, 1st Ed.</span>
+                                <span class="timeline-date">2026 (Accepted)</span>
+                                <p>Proposed a two-layer ML + XAI framework with SHAP and LIME integration addressing
+                                    extreme dataset imbalances.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-category">
-                    <h3>FRONTEND</h3>
-                    <ul>
-                        <li>HTML</li>
-                        <li>CSS</li>
-                        <li>JavaScript</li>
-                        <li>Flutter</li>
-                    </ul>
+            </section>
+
+            <!-- Footer -->
+            <footer id="contact" class="footer">
+                <div class="container">
+                    <div class="footer-cta">
+                        <h2 class="mega-text">LET'S BUILD</h2>
+                        <div class="contact-details">
+                            <a href="mailto:agrawalvinamra12@gmail.com" class="footer-link">Email:
+                                agrawalvinamra12@gmail.com</a>
+                            <a href="tel:+918881172694" class="footer-link">Phone: +91 8881172694</a>
+                        </div>
+                    </div>
+
+                    <div class="copyright">
+                        <p>&copy; 2026 Vinamra Agrawal. System Operational.</p>
+                    </div>
                 </div>
-                <div class="skill-category">
-                    <h3>TOOLS & PLATFORMS</h3>
-                    <ul>
-                        <li>Git</li>
-                        <li>Linux</li>
-                        <li>SQL</li>
-                    </ul>
-                </div>
-            </div>
         </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="section projects-section">
-        <div class="content">
-            <h2>PROJECTS_DEPLOYED</h2>
-
-            <div class="project-card">
-                <h3>PHISHING URL DETECTOR - EXPLAINABLE ML FRAMEWORK</h3>
-                <p>
-                    Implementation of research paper: "An Explainable Machine Learning Framework for URL-Based Phishing
-                    Detection".
-                    Developed a two-layer phishing detection system combining Random Forest and Logistic Regression for
-                    URL classification.
-                    Applied SMOTE to address severe dataset imbalance across 160k+ URLs (159k phishing, 820 legitimate).
-                    Integrated SHAP and LIME to provide global and instance-level explanations for model predictions.
-                </p>
-                <div class="project-stats">
-                    <span class="stat">160K+ URLs</span>
-                    <span class="stat">SHAP + LIME Integration</span>
-                    <span class="stat">Live Demo Available</span>
-                </div>
-                <a href="https://phishing-detection-url.streamlit.app/" class="project-link">View Demo</a>
-            </div>
-
-            <div class="project-card">
-                <h3>AI CHATBOT USING GENERATIVE AI</h3>
-                <p>
-                    Built an NLP-based AI chatbot using OpenAI API evaluated on 50+ structured test queries across
-                    multiple user intents.
-                    Improved response relevance by ~30% through prompt refinement and intent classification tuning.
-                    Reduced average response latency by ~20% by optimizing API call structure and backend handling.
-                </p>
-                <div class="project-stats">
-                    <span class="stat">30% Improvement in Relevance</span>
-                    <span class="stat">20% Latency Reduction</span>
-                    <span class="stat">50+ Test Queries</span>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h3>MULTILINGUAL AI PLATFORM FOR E-COMMERCE</h3>
-                <p>
-                    Designed scalable frontend architecture supporting 3+ regional language configurations.
-                    Implemented responsive UI components improving cross-device compatibility across desktop and mobile
-                    views.
-                    Integrated REST APIs to enable real-time AI-powered customer query resolution.
-                </p>
-                <div class="project-stats">
-                    <span class="stat">3+ Languages</span>
-                    <span class="stat">Cross-Device Compatible</span>
-                    <span class="stat">25% Workflow Improvement</span>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h3>AI-BASED TAXATION PLATFORM</h3>
-                <p>
-                    Developed modular frontend components for an AI-powered tax assistance system.
-                    Simplified complex tax-query workflows, reducing average resolution time by ~20%.
-                    Improved UI clarity by restructuring input workflows and validation handling.
-                </p>
-                <div class="project-stats">
-                    <span class="stat">Modular Components</span>
-                    <span class="stat">20% Faster Resolution</span>
-                    <span class="stat">Simplified UI</span>
-                </div>
-            </div>
+        </footer>
         </div>
-    </section>
-
-    <!-- Publications Section -->
-    <section id="publications" class="section publications-section">
-        <div class="content">
-            <h2>PUBLICATIONS</h2>
-            <div class="publication-card">
-                <h3>An Explainable Machine Learning Framework for URL-Based Phishing Detection</h3>
-                <p>IEEE SB JIIT Booklet-1st Edition, 2026 (Accepted)</p>
-                <ul>
-                    <li>Co-authored a research paper proposing a two-layer ML + XAI framework for phishing detection.
-                    </li>
-                    <li>Implemented Random Forest and Logistic Regression models for URL classification.</li>
-                    <li>Integrated SHAP and LIME to provide local and global interpretability.</li>
-                    <li>Addressed severe dataset imbalance (159k+ phishing URLs) using robust evaluation metrics.</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="section experience-section">
-        <div class="content">
-            <h2>WORK_EXPERIENCE</h2>
-            <div class="experience-card">
-                <h3>UI/UX Designer | Team Coordinator</h3>
-                <div class="company-info">Alpixn Technologies Pvt. Ltd., Gurugram | May 2025 - June 2025</div>
-                <ul>
-                    <li>Led frontend development and UI architecture for an AI-driven multilingual customer support
-                        platform supporting 3+ regional configurations.</li>
-                    <li>Developed responsive UI components and integrated REST APIs for real-time AI-powered query
-                        handling.</li>
-                    <li>Contributed to AI-based taxation platform by implementing modular frontend components and
-                        backend API integrations.</li>
-                    <li>Reduced user interaction steps by ~20% by restructuring navigation flows and optimizing UI
-                        logic.</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section id="certifications" class="section certifications-section">
-        <div class="content">
-            <h2>CERTIFICATIONS</h2>
-            <div class="certification-card">
-                <h3>MongoDB Bootcamp (2025)</h3>
-                <p>Acquired hands-on experience with MongoDB, covering database design, CRUD operations, and NoSQL data
-                    modeling.</p>
-            </div>
-            <div class="certification-card">
-                <h3>Building AI Applications with DeepSeek (2025)</h3>
-                <p>Worked with DeepSeek models, embeddings, RAG pipelines, and AI agent workflows.</p>
-            </div>
-            <div class="certification-card">
-                <h3>Unmanned Aerial Vehicle (UAV) Bootcamp Certification by CDAC (2026)</h3>
-                <p>Completed hands-on training covering UAV architecture, flight control systems, and autonomous
-                    navigation fundamentals.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="section education-section">
-        <div class="content">
-            <h2>EDUCATION</h2>
-            <div class="education-card">
-                <h3>Bachelor of Technology in Electronics & Computer Engineering</h3>
-                <div class="institution">Jaypee Institute of Information Technology, Noida | 2024-2028</div>
-                <div class="gpa">CGPA: 8.6</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
-        <div class="content">
-            <h2>CONTACT_GIT</h2>
-            <div class="contact-info">
-                <p>Email: <a href="mailto:agrawalvinamra12@gmail.com">agrawalvinamra12@gmail.com</a></p>
-                <p>Phone: <a href="tel:+918881172694">+91 8881172694</a></p>
-                <p>LinkedIn: <a href="https://linkedin.com/in/vinamragrawal12">linkedin.com/in/vinamragrawal12</a></p>
-                <p>GitHub: <a href="https://github.com/vinamrag-code">github.com/vinamrag-code</a></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- System Stats -->
-    <div class="system-stats">
-        <div class="stats-container">
-            <div class="stat-row">
-                <span class="label">uptime:</span>
-                <span class="value">4 years (B.Tech)</span>
-            </div>
-            <div class="stat-row">
-                <span class="label">cpu_load:</span>
-                <span class="value">85% (Learning)</span>
-            </div>
-            <div class="stat-row">
-                <span class="label">memory:</span>
-                <span class="value">16GB (Knowledge)</span>
-            </div>
-            <div class="stat-row">
-                <span class="label">projects:</span>
-                <span class="value">4 ✓</span>
-            </div>
-            <div class="stat-row">
-                <span class="label">status:</span>
-                <span class="value">OPERATIONAL</span>
-            </div>
-            <div class="stat-row">
-                <span class="label">last_deploy:</span>
-                <span class="value">2026-03-19</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    </main>
     <script src="script.js"></script>
 </body>
 
