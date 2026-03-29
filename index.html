@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vinamra Agrawal | AI/ML Engineer</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2.0">
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono:wght@100..800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -22,12 +22,28 @@
 </head>
 
 <body>
+    <!-- Interactive Split Loader -->
+    <div id="split-loader">
+        <div class="loader-left">
+            <div class="loader-terminal">
+                <div id="loader-logs"></div>
+                <span class="active-typing"></span><span class="term-cursor"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <div class="hamburger">
+        <i class="fas fa-bars"></i>
+    </div>
+
     <div id="webgl-container"></div>
 
     <div class="custom-cursor"></div>
     <div class="custom-cursor-follower"></div>
 
     <nav class="navbar">
+        <div class="nav-arrow"><i class="fas fa-chevron-left"></i></div>
         <div class="nav-logo">VA_</div>
         <div class="nav-links">
             <a href="#home" class="nav-link" data-text="HOME">HOME</a>
@@ -142,18 +158,24 @@
                             <h3 class="project-name">Phishing URL Detector</h3>
                             <div class="project-tags"><span>SHAP</span><span>LIME</span><span>Random Forest</span></div>
                             <div class="reveal-img-wrap">
-                                <div class="reveal-img"></div>
+                                <div class="reveal-img"
+                                    style="background-image: url('https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=600&q=80'); background-size: cover; background-position: center;">
+                                </div>
                             </div>
                         </a>
 
-                        <div class="project-item magnetic-wrap">
+                        <a href="https://myai-cg41.onrender.com/" target="_blank" class="project-item magnetic-wrap">
                             <div class="project-meta">02 / NLP Chatbot</div>
-                            <h3 class="project-name">Generative AI Assistant</h3>
-                            <div class="project-tags"><span>OpenAI API</span><span>Intent Classification</span></div>
-                            <div class="reveal-img-wrap">
-                                <div class="reveal-img"></div>
+                            <h3 class="project-name">MyAI : Multi-Model Chatbot</h3>
+                            <div class="project-tags">
+                                <span>FastAPI</span><span>Python</span><span>JavaScript</span><span>LLM APIs</span>
                             </div>
-                        </div>
+                            <div class="reveal-img-wrap">
+                                <div class="reveal-img"
+                                    style="background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600&q=80'); background-size: cover; background-position: center;">
+                                </div>
+                            </div>
+                        </a>
 
                         <div class="project-item magnetic-wrap">
                             <div class="project-meta">03 / Platform Architecture</div>
@@ -161,7 +183,9 @@
                             <div class="project-tags"><span>React</span><span>Node.js</span><span>WebSockets</span>
                             </div>
                             <div class="reveal-img-wrap">
-                                <div class="reveal-img"></div>
+                                <div class="reveal-img"
+                                    style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80'); background-size: cover; background-position: center;">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -218,7 +242,7 @@
         </footer>
         </div>
     </main>
-    <script src="script.js"></script>
+    <script src="script.js?v=2.0"></script>
 </body>
 
 </html>

@@ -1,6 +1,90 @@
 // Ensure GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+// Force scroll to top on reload
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
+// ===== SPLIT LOADER =====
+const loader = document.getElementById("split-loader");
+const loaderLogs = document.getElementById("loader-logs");
+const activeTyping = document.querySelector(".active-typing");
+const loaderGrid = document.getElementById("loader-grid");
+
+const termLines = [
+    "vinamra@system:~$ ./init_sequence.sh",
+    "[OK] Bootstrapping virtual environment...",
+    "[OK] Neural networks aligned.",
+    "vinamra@system:~$ fetch dependencies",
+    "[INFO] Downloading UI modules...",
+    "[INFO] Compiling local assets...",
+    "[OK] Rendering engine active.",
+    "vinamra@system:~$ launch portfolio",
+    "System ready. Bypassing security protocols..."
+];
+
+let lineIdx = 0;
+let charIdx = 0;
+
+function processTerminal() {
+    if (!loaderLogs || !activeTyping) return;
+    if (lineIdx < termLines.length) {
+        const currentLine = termLines[lineIdx];
+        
+        if (currentLine.startsWith("vinamra@system")) {
+            if (charIdx < currentLine.length) {
+                activeTyping.textContent += currentLine.charAt(charIdx);
+                charIdx++;
+                setTimeout(processTerminal, 40); 
+            } else {
+                setTimeout(() => {
+                    const p = document.createElement("p");
+                    p.textContent = currentLine;
+                    p.style.color = "#b463ff";
+                    loaderLogs.appendChild(p);
+                    activeTyping.textContent = "";
+                    charIdx = 0;
+                    lineIdx++;
+                    setTimeout(processTerminal, 200);
+                }, 300);
+            }
+        } else {
+            const p = document.createElement("p");
+            p.textContent = currentLine;
+            if (currentLine.startsWith("[OK]")) p.style.color = "#00eeff";
+            else p.style.color = "#a0a0a0";
+            
+            loaderLogs.appendChild(p);
+            lineIdx++;
+            let delay = Math.random() * 200 + 100;
+            setTimeout(processTerminal, delay);
+        }
+    } else {
+        setTimeout(removeLoader, 1000);
+    }
+}
+
+function removeLoader() {
+    gsap.to(loader, {
+        yPercent: -100,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power4.inOut",
+        onComplete: () => {
+            if(loader) loader.style.display = "none";
+            initHeroAnimation();
+        }
+    });
+}
+
+window.addEventListener("load", () => {
+    if(loader) {
+        setTimeout(processTerminal, 500);
+    }
+});
+
 // ===== SMOOTH SCROLLING (Lenis) =====
 const lenis = new Lenis({
     duration: 1.2,
@@ -167,20 +251,26 @@ initThreeJS();
 // ===== GSAP ANIMATIONS =====
 
 // Hero Intro Animation
-const tl = gsap.timeline();
-tl.to(".word", {
-    y: 0,
-    duration: 1.2,
-    ease: "power4.out",
-    stagger: 0.2,
-    delay: 0.5
-})
-.to(".hero-sub", {
-    opacity: 1,
-    y: 0,
-    duration: 1,
-    ease: "power4.out"
-}, "-=0.6");
+function initHeroAnimation() {
+    const tl = gsap.timeline();
+    tl.to(".word", {
+        y: 0,
+        duration: 1.2,
+        ease: "power4.out",
+        stagger: 0.2
+    })
+    .to(".hero-sub", {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power4.out"
+    }, "-=0.6");
+}
+
+// Fallback if no loader
+if(!document.getElementById("render-loader")) {
+    initHeroAnimation();
+}
 
 // Section Headings Reveal
 document.querySelectorAll('.section-heading').forEach(heading => {
@@ -241,3 +331,30 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
         });
     });
 });
+
+// ===== MOBILE MENU TOGGLE =====
+const hamburger = document.querySelector('.hamburger');
+const navbar = document.querySelector('.navbar');
+
+if (hamburger) {
+    hamburger.addEventListener('click', () => {
+        navbar.classList.toggle('mobile-active');
+        const icon = hamburger.querySelector('i');
+        if (navbar.classList.contains('mobile-active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navbar.classList.remove('mobile-active');
+            const icon = hamburger.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+    });
+}
