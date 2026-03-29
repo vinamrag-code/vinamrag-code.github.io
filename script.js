@@ -32,12 +32,12 @@ function processTerminal() {
     if (!loaderLogs || !activeTyping) return;
     if (lineIdx < termLines.length) {
         const currentLine = termLines[lineIdx];
-        
+
         if (currentLine.startsWith("vinamra@system")) {
             if (charIdx < currentLine.length) {
                 activeTyping.textContent += currentLine.charAt(charIdx);
                 charIdx++;
-                setTimeout(processTerminal, 40); 
+                setTimeout(processTerminal, 10);
             } else {
                 setTimeout(() => {
                     const p = document.createElement("p");
@@ -47,22 +47,22 @@ function processTerminal() {
                     activeTyping.textContent = "";
                     charIdx = 0;
                     lineIdx++;
-                    setTimeout(processTerminal, 200);
-                }, 300);
+                    setTimeout(processTerminal, 50);
+                }, 100);
             }
         } else {
             const p = document.createElement("p");
             p.textContent = currentLine;
             if (currentLine.startsWith("[OK]")) p.style.color = "#00eeff";
             else p.style.color = "#a0a0a0";
-            
+
             loaderLogs.appendChild(p);
             lineIdx++;
-            let delay = Math.random() * 200 + 100;
+            let delay = Math.random() * 50 + 30;
             setTimeout(processTerminal, delay);
         }
     } else {
-        setTimeout(removeLoader, 1000);
+        setTimeout(removeLoader, 300);
     }
 }
 
@@ -70,17 +70,17 @@ function removeLoader() {
     gsap.to(loader, {
         yPercent: -100,
         opacity: 0,
-        duration: 1.2,
+        duration: 0.8,
         ease: "power4.inOut",
         onComplete: () => {
-            if(loader) loader.style.display = "none";
+            if (loader) loader.style.display = "none";
             initHeroAnimation();
         }
     });
 }
 
 window.addEventListener("load", () => {
-    if(loader) {
+    if (loader) {
         setTimeout(processTerminal, 500);
     }
 });
@@ -88,7 +88,7 @@ window.addEventListener("load", () => {
 // ===== SMOOTH SCROLLING (Lenis) =====
 const lenis = new Lenis({
     duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     direction: 'vertical',
     gestureDirection: 'vertical',
     smooth: true,
@@ -107,8 +107,8 @@ requestAnimationFrame(raf);
 // Integrate Lenis with ScrollTrigger
 lenis.on('scroll', ScrollTrigger.update)
 
-gsap.ticker.add((time)=>{
-  lenis.raf(time * 1000)
+gsap.ticker.add((time) => {
+    lenis.raf(time * 1000)
 })
 gsap.ticker.lagSmoothing(0)
 
@@ -124,7 +124,7 @@ let followerX = 0, followerY = 0;
 document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    
+
     gsap.to(cursor, {
         x: mouseX,
         y: mouseY,
@@ -155,7 +155,7 @@ links.forEach(link => {
 function initThreeJS() {
     const container = document.getElementById('webgl-container');
     const scene = new THREE.Scene();
-    
+
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 30;
 
@@ -176,17 +176,17 @@ function initThreeJS() {
     const color1 = new THREE.Color('#00eeff');
     const color2 = new THREE.Color('#b463ff');
 
-    for(let i=0; i < particleCount * 3; i+=3) {
+    for (let i = 0; i < particleCount * 3; i += 3) {
         positions[i] = (Math.random() - 0.5) * 100; // x
-        positions[i+1] = (Math.random() - 0.5) * 100; // y
-        positions[i+2] = (Math.random() - 0.5) * 50; // z
+        positions[i + 1] = (Math.random() - 0.5) * 100; // y
+        positions[i + 2] = (Math.random() - 0.5) * 50; // z
 
         const mixRatio = Math.random();
         const mixedColor = color1.clone().lerp(color2, mixRatio);
-        
+
         colors[i] = mixedColor.r;
-        colors[i+1] = mixedColor.g;
-        colors[i+2] = mixedColor.b;
+        colors[i + 1] = mixedColor.g;
+        colors[i + 2] = mixedColor.b;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -259,16 +259,16 @@ function initHeroAnimation() {
         ease: "power4.out",
         stagger: 0.2
     })
-    .to(".hero-sub", {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power4.out"
-    }, "-=0.6");
+        .to(".hero-sub", {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power4.out"
+        }, "-=0.6");
 }
 
 // Fallback if no loader
-if(!document.getElementById("render-loader")) {
+if (!document.getElementById("render-loader")) {
     initHeroAnimation();
 }
 
